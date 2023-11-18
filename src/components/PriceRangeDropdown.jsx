@@ -10,25 +10,25 @@ function PriceRangeDropdown() {
 
   const prices = [
         {
-          value: 'Price range'
+          value: 'Price range (any)'
         },
         {
-          value: '10.000$ - 30.000$'
+          value: '10000$ - 30000$'
         },
         {
-          value: '30.000$ - 40.000$'
+          value: '30000$ - 40000$'
         },
         {
-          value: '100.000$ - 130.000$'
+          value: '100000$ - 130000$'
         },
         {
-          value: '130.000$ - 160.000$'
+          value: '130000$ - 160000$'
         },
         {
-          value: '160.000$ - 190.000$'
+          value: '160000$ - 190000$'
         },
         {
-          value: '190.000$ - 220.000$'
+          value: '190000$ - 220000$'
         }
   ];
 

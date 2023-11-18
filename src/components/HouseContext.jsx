@@ -17,7 +17,7 @@ function HouseContextProvider({children}) {
    const allCountries = houses.map((item) => {
     return item.country
    });
-   const uniqueCountries = ['location', ... new Set(allCountries)];
+   const uniqueCountries = ['Location (any)', ... new Set(allCountries)];
 
    setCountries(uniqueCountries);
   }, []);
@@ -26,14 +26,76 @@ function HouseContextProvider({children}) {
     const allProperties = houses.map((item) => {
      return item.type
     });
-    const uniqueProperties = ['location', ... new Set(allProperties)];
+    const uniqueProperties = ['Type (any)', ... new Set(allProperties)];
  
     setProperties(uniqueProperties);
    }, []);
 
    function handleClick () {
-    console.log('ok');
-   }
+    setLoading(true);
+    const isDeafult = (str) => {
+      return str.split(" ").includes('(any)');
+    };
+    const minPrice = parseInt(price.split(" ")[0]);
+    const maxPrice = parseInt(price.split(" ")[2]);
+    
+    const filtredHouses = housesData.filter((item) => {
+      const housePrice = parseInt(item.price);
+
+      if (
+        item.country === country &&
+        item.type === property && 
+        housePrice >= minPrice &&
+        housePrice <= maxPrice
+      ) {
+        return item;
+      };
+
+      if(isDeafult(country) && isDeafult(property) && isDeafult(price)) {
+        return item;
+      };
+
+      if(!isDeafult(country) && isDeafult(property) && isDeafult(price)) {
+        return item.country === country;
+      };
+
+      if(!isDeafult(property) && isDeafult(country) && isDeafult(price)) {
+        return item.type === property;
+      };
+
+      if(isDeafult(property) && isDeafult(country) && !isDeafult(price)) {
+        if(housePrice >= minPrice && housePrice <= maxPrice) {
+          return item;
+        };
+      };
+
+      if(!isDeafult(property) && isDeafult(country) && isDeafult(price)) {
+        return item.type === property;
+      };
+
+      if(!isDeafult(property) && !isDeafult(country) && isDeafult(price)) {
+        return item.type === property && item.country === country;
+      };
+
+      if(isDeafult(property) && !isDeafult(country) && !isDeafult(price)) {
+        if(housePrice >= minPrice && housePrice <= maxPrice) {
+          return item.country === country;
+        };
+      };
+
+      if(!isDeafult(property) && isDeafult(country) && !isDeafult(price)) {
+        if(housePrice >= minPrice && housePrice <= maxPrice) {
+          return item.type === property;
+        };
+      };
+    });
+
+    setTimeout(() => {
+      return filtredHouses.length < 1 ? setHouses([]) : setHouses(filtredHouses),
+      setLoading(false);
+    }, 1000);
+
+   };
 
   return (
    <HouseContext.Provider value={{country,
