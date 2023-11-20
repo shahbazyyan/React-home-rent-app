@@ -4,8 +4,9 @@ import HouseList from '../components/HouseList';
 
 
 function Home() {
+  
   return (
-    <div className='min-h-[1800px]'>
+    <div className='min-h-[1900px]'>
       <Banner/>
       <HouseList/>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../assets/img/house-banner.png';
+import img from '../assets/img/house-banner.jpg';
 import Search from '../components/Search';
 
 function Banner() {
@@ -13,7 +13,7 @@ function Banner() {
         </div>
 
         <div className='hidden flex-1 lg:flex justify-end items-end '>
-           <img src={img} alt="img" />
+        <img className="rounded-tl-[200px]" src={img} alt="img" />
         </div>
       </div>
 
